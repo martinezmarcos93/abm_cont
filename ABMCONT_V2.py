@@ -16,7 +16,7 @@ miCUIL=StringVar()
 miCLAVE_FISCAL=StringVar()
 
 def conexionBBDD():
-	miConexion=sqlite3.connect("da.db")
+	miConexion=sqlite3.connect("baseContable.db")
 	miCursor=miConexion.cursor()
 
 	try:
@@ -24,7 +24,7 @@ def conexionBBDD():
 			CREATE TABLE clientes (
 			NOMBRE VARCHAR(50) NOT NULL,
 			MAIL VARCHAR(50) NOT NULL,
-			CUIL INT NOT NULL,
+			CUIL VARCHAR(10) NOT NULL,
 			CLAVE_FISCAL VARCHAR(50) NOT NULL)
 			''')
 		messagebox.showinfo("CONEXION","Base de Datos Creada exitosamente")
@@ -32,7 +32,7 @@ def conexionBBDD():
 		messagebox.showinfo("CONEXION", "Conexión exitosa con la base de datos")
 
 def eliminarBBDD():
-	miConexion=sqlite3.connect("da.db3")
+	miConexion=sqlite3.connect("baseContable.db")
 	miCursor=miConexion.cursor()
 	if messagebox.askyesno(message="¿Los Datos se perderan definitivamente, Desea continuar?", title="ADVERTENCIA"):
 		miCursor.execute("DROP TABLE clientes")
@@ -47,10 +47,10 @@ def salirAplicacion():
 		root.destroy()
 
 def limpiarCampos():
-	miNOMBRE.set("")
-	miMAIL.set("")
-	miCUIL.set("")
-	miCLAVE_FISCAL.set("")
+	miNOMBRE.set(" ")
+	miMAIL.set(" ")
+	miCUIL.set(" ")
+	miCLAVE_FISCAL.set(" ")
 
 def mensaje():
 	acerca='''
@@ -63,11 +63,11 @@ def mensaje():
 ################################ Métodos CRUD ##############################
 
 def crear():
-	miConexion=sqlite3.connect("da.db3")
+	miConexion=sqlite3.connect("baseContable.db")
 	miCursor=miConexion.cursor()
 	try:
 		datos=miNOMBRE.get(),miMAIL.get(),miCUIL.get(),miCLAVE_FISCAL.get()
-		miCursor.execute("INSERT INTO clientes VALUES(NULL,?,?,?,?)", (datos))
+		miCursor.execute("INSERT INTO clientes VALUES(????)", (datos))
 		miConexion.commit()
 	except:
 		messagebox.showwarning("ADVERTENCIA","Ocurrió un error al crear el registro, verifique conexión con BBDD")
@@ -76,7 +76,7 @@ def crear():
 	mostrar()
 
 def mostrar():
-	miConexion=sqlite3.connect("da.db3")
+	miConexion=sqlite3.connect("baseContable.db")
 	miCursor=miConexion.cursor()
 	registros=tree.get_children()
 	for elemento in registros:
@@ -111,7 +111,7 @@ tree.bind("<Double-1>", seleccionarUsandoClick)
 
 
 def actualizar():
-	miConexion=sqlite3.connect("da.db3")
+	miConexion=sqlite3.connect("baseContable.db3")
 	miCursor=miConexion.cursor()
 	try:
 		datos=miNOMBRE.get(),miMAIL.get(),miCUIL.get(),miCLAVE_FISCAL.get()
@@ -124,7 +124,7 @@ def actualizar():
 	mostrar()
 
 def borrar():
-	miConexion=sqlite3.connect("da.db3")
+	miConexion=sqlite3.connect("baseContable.db3")
 	miCursor=miConexion.cursor()
 	try:
 		if messagebox.askyesno(message="¿Realmente desea eliminar el registro?", title="ADVERTENCIA"):
@@ -193,4 +193,5 @@ root.config(menu=menubar)
 
 root.mainloop()
 
-#Modificacion sin proposito
+
+#except Exception as e: print()

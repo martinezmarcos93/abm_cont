@@ -16,7 +16,7 @@ miCUIL=StringVar()
 miCLAVE_FISCAL=StringVar()
 
 def conexionBBDD():
-	miConexion=sqlite3.connect("da.db3")
+	miConexion=sqlite3.connect("da.db")
 	miCursor=miConexion.cursor()
 
 	try:
